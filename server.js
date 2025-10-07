@@ -194,6 +194,78 @@ async function sendFeedbackEmail(sessionId, rating, feedback, email) {
     console.log(`Would send email with feedback:`, { sessionId, rating, feedback, email });
     // Actual implementation would go here
 }
+app.get('/health', (req, res) => {
+    res.status(200).json({ 
+        status: 'OK', 
+        timestamp: new Date().toISOString(),
+        environment: process.env.NODE_ENV || 'development'
+    });
+});
+
+// Root endpoint
+app.get('/', (req, res) => {
+    res.json({ 
+        message: 'Paraphrasing Teacher Backend API',
+        version: '1.0.0',
+        endpoints: ['/api/chat', '/api/feedback', '/api/chat-history/:sessionId']
+    });
+});
+
+// Handle unhandled promise rejections
+process.on('unhandledRejection', (err) => {
+    console.log('UNHANDLED REJECTION! 💥 Shutting down...');
+    console.log(err.name, err.message);
+    process.exit(1);
+});
+
+// Handle uncaught exceptions
+process.on('uncaughtException', (err) => {
+    console.log('UNCAUGHT EXCEPTION! 💥 Shutting down...');
+    console.log(err.name, err.message);
+    process.exit(1);
+});
+
+app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+    console.log(`Environment: ${process.env.NODE_ENV || 'development'}`);
+});
+// Add this at the end of server.js, before app.listen
+// Health check endpoint
+app.get('/health', (req, res) => {
+    res.status(200).json({ 
+        status: 'OK', 
+        timestamp: new Date().toISOString(),
+        environment: process.env.NODE_ENV || 'development'
+    });
+});
+
+// Root endpoint
+app.get('/', (req, res) => {
+    res.json({ 
+        message: 'Paraphrasing Teacher Backend API',
+        version: '1.0.0',
+        endpoints: ['/api/chat', '/api/feedback', '/api/chat-history/:sessionId']
+    });
+});
+
+// Handle unhandled promise rejections
+process.on('unhandledRejection', (err) => {
+    console.log('UNHANDLED REJECTION! 💥 Shutting down...');
+    console.log(err.name, err.message);
+    process.exit(1);
+});
+
+// Handle uncaught exceptions
+process.on('uncaughtException', (err) => {
+    console.log('UNCAUGHT EXCEPTION! 💥 Shutting down...');
+    console.log(err.name, err.message);
+    process.exit(1);
+});
+
+app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+    console.log(`Environment: ${process.env.NODE_ENV || 'development'}`);
+});
 
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
